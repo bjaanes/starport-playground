@@ -23,7 +23,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - uses: MOZGIII/install-ldid-action@<action-version>
+      - uses: MOZGIII/install-ldid-action@v1
         with:
           tag: v2.1.5-procursus2
           
