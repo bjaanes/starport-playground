@@ -47,8 +47,10 @@ jobs:
         with:
           repo: "https://github.com/protocolbuffers/protobuf"
           version: "latest"
-          file: "protoc-\\d+\\.\\d+\\.\\d+-linux-x86_64\\.zip"
           regex: true
+          file: "protoc-.*-linux-x86_64\\.zip"
+          target: "./"
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check outputs
         run: |
