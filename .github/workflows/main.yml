@@ -45,7 +45,7 @@ jobs:
       - uses: dsaltares/fetch-gh-release-asset@master
         id: download-x64
         with:
-          repo: "https://github.com/protocolbuffers/protobuf"
+          repo: "protocolbuffers/protobuf"
           version: "latest"
           regex: true
           file: "protoc-.*-linux-x86_64\\.zip"
