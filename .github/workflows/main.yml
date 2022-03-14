@@ -1,26 +1,14 @@
-# This is a basic workflow to help you get started with Actions
+name: The executables
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  build-it-in-nodetime:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
       - name: Set up QEMU
@@ -38,10 +26,18 @@ jobs:
         with:
           node-version: '14'
           
-      - run: npm i
-        working-directory: scripts/data/gen-nodetime
-        
-      - run: npm run build
-        working-directory: scripts/data/gen-nodetime
-        
-      # TODO: more stuff :D
+      - run: ./scripts/gen-nodetime
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "feat(pkg/nodetime): update binaries"
+          commit-message: "feat(pkg/nodetime): update binaries"
+          body: ""
+          branch: feat/gen-nodetime
+
+  play-some-dart:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
