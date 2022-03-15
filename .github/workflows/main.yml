@@ -42,22 +42,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: dsaltares/fetch-gh-release-asset@master
-        id: download-x64
+      - run: sudo apt install wget unzip jq
+
+      - run: ./scripts/gen-protoc
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
         with:
-          repo: "protocolbuffers/protobuf"
-          version: "latest"
-          regex: true
-          file: "protoc-.*-linux-x86_64\\.zip"
-          target: "./"
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Check outputs
-        run: |
-          echo "Version: ${{ steps.download-x64.outputs.version }}"
-          echo "Body: ${{ steps.download-x64.outputs.body }}"
-
-  play-some-dart:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+          title: "feat(pkg/protoc): update binaries"
+          commit-message: "feat(pkg/protoc): update binaries"
+          body: ""
+          branch: feat/gen-protoc
