@@ -2,7 +2,8 @@ name: Generate protoc binaries
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main # Change back to develop
 
 jobs:
   gen-protoc:

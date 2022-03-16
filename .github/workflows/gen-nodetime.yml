@@ -1,12 +1,16 @@
-name: Build nodetime
+name: Generate nodetime binaries
 
 # The reason this is workflow is set up to only run on changes to source code is:
-# 1. It is currently 'impossible' to build a deterministic binary (equal hash from equal code) due to the way bytecode generation works in pkg
-# 2. It should not be necessary to run it in any other scenarios as the only way the nodetime executable changes is when we make changes to the source code itself (including updating dependencies)
+# 1. It is currently 'impossible' to build a deterministic binary (equal hash from equal code)
+#    due to the way bytecode generation works in pkg. pkg has a --no-bytecode option, but it won't run because we include bytecode
+#    binaries like tsc in our build, and it therefore complains that we are including bytecode in a non-bytecode build.
+# 2. It should not be necessary to run it in any other scenarios as the only way the nodetime executable changes
+#    is when we make changes to the source code itself (including updating dependencies).
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main # Change back to develop
     paths:
       - "scripts/data/gen-nodetime/**"
       - "scripts/gen-nodetime"
