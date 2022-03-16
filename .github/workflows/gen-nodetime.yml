@@ -1,12 +1,18 @@
-name: The executables
+name: Build nodetime
+
+# The reason this is workflow is set up to only run on changes to source code is:
+# 1. It is currently 'impossible' to build a deterministic binary (equal hash from equal code) due to the way bytecode generation works in pkg
+# 2. It should not be necessary to run it in any other scenarios as the only way the nodetime executable changes is when we make changes to the source code itself (including updating dependencies)
 
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
+    paths:
+      - "scripts/data/gen-nodetime/**"
+      - "scripts/gen-nodetime"
 
 jobs:
-  build-it-in-nodetime:
+  build-nodetime:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -34,23 +40,5 @@ jobs:
         with:
           title: "feat(pkg/nodetime): update binaries"
           commit-message: "feat(pkg/nodetime): update binaries"
-          body: ""
+          body: "Update the nodetime binaries"
           branch: feat/gen-nodetime
-
-  protoc-it-up:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - run: sudo apt install wget unzip jq
-
-      - run: ./scripts/gen-protoc
-
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v3
-        with:
-          title: "feat(pkg/protoc): update binaries"
-          commit-message: "feat(pkg/protoc): update binaries"
-          body: ""
-          branch: feat/gen-protoc
