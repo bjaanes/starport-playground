@@ -23,7 +23,7 @@ jobs:
           arch: aarch64
           distro: ubuntu20.04
           run: |
-            apt update && apt install -jq wget unzip
+            apt update && apt install -yq wget unzip
             wget https://storage.googleapis.com/dart-archive/channels/stable/release/2.16.1/sdk/dartsdk-linux-arm64-release.zip
             unzip dartsdk-linux-arm64-release.zip -d $HOME && rm dartsdk-linux-arm64-release.zip
             PATH=$HOME/dart-sdk/bin:$PATH
