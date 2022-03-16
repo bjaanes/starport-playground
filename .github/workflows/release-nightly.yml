@@ -3,7 +3,7 @@ name: Release nightly
 on:
   push:
     branches:
-      - develop 
+      - main # TODO Change back to develop
 
 jobs:
   release-nightly:
@@ -48,7 +48,7 @@ jobs:
           path: ${{ env.working-directory }}
           fetch-depth: 0
 
-      - name: Run GoReleaser
+      - name: Run GoReleaser # TODO Remember to change back the .goreleaser.yml github.com/bjaanes... stuff
         uses: goreleaser/goreleaser-action@v2
         with:
           workdir: ${{ env.working-directory }}
@@ -58,4 +58,4 @@ jobs:
           version: v0.157.0
           args: release --rm-dist --skip-validate -f .goreleaser.nightly.yml
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # TODO Change back
