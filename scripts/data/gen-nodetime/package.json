@@ -24,15 +24,11 @@
 	},
 	"bin": "nodetime",
 	"pkg": {
-		"scripts": [
-			"./nodetime.js",
-			"./src/**/*.ts"
-		],
 		"targets": [
-			"node14-linux-x64",
-			"node14-linux-arm64",
-			"node14-macos-x64",
-			"node14-macos-arm64"
+			"node16-linux-x64",
+			"node16-linux-arm64",
+			"node16-macos-x64",
+			"node16-macos-arm64"
 		],
 		"assets": [
 			"./node_modules/typescript/lib/**/*.ts",
