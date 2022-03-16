@@ -6,7 +6,7 @@ set -e
 
 cd ./scripts/data/gen-nodetime
 
-npm i 
+npm ci # Faster in ci + stops package-lock changes (this should happen in commits anyway)
 npm run build
 
 tar -czvf nodetime-linux-amd64.tar.gz nodetime-linux-x64
